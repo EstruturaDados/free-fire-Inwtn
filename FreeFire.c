@@ -84,6 +84,36 @@ void listarItens() {
     }
 }
 
+// Função para buscar um item pelo nome e exibir seus detalhes
+void buscarItem() {
+    if (totalItens == 0) {
+        printf("Mochila vazia! Nenhum item para buscar.\n");
+        return;
+    }
+
+    char nomeBusca[30];
+    printf("Digite o nome do item que deseja buscar: ");
+    getchar();
+    fgets(nomeBusca, sizeof(nomeBusca), stdin);
+    nomeBusca[strcspn(nomeBusca, "\n")] = '\0';
+
+    int encontrado = 0;
+    for (int i = 0; i < totalItens; i++) {
+        if (strcmp(mochila[i].nome, nomeBusca) == 0) {
+            printf("\nItem encontrado:\n");
+            printf("Nome: %s\n", mochila[i].nome);
+            printf("Tipo: %s\n", mochila[i].tipo);
+            printf("Quantidade: %d\n", mochila[i].quantidade);
+            encontrado = 1;
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        printf("Item '%s' nao encontrado na mochila.\n", nomeBusca);
+    }
+}
+
 int main() {
     int opcao;
 
@@ -92,6 +122,7 @@ int main() {
         printf("1 - Adicionar item\n");
         printf("2 - Remover item\n");
         printf("3 - Listar itens\n");
+        printf("4 - Buscar item por nome\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -105,6 +136,9 @@ int main() {
                 break;
             case 3:
                 listarItens();
+                break;
+            case 4:
+                buscarItem();
                 break;
             case 0:
                 printf("Encerrando programa. Ate logo!\n");
